@@ -33,19 +33,28 @@ class Himado
   def video(url)
     res = Hash.new
     doc = Nokogiri::HTML open(url).read.toutf8
-
-    res[:video_url] = doc.xpath('//script').to_a.map{|i|
+    scripts = doc.xpath('//script').to_a.map{|i|
       i.text
-    }.join('').split(';').delete_if{|i|
-      !(i =~ /var +display_movie_url += +/)
-    }.map{|i|
-      begin
-        u = URI.decode i.scan(/'(http.+)'/).first.first
-      rescue
-        u = nil
-      end
-      u
-    }.delete_if{|i| i == nil}.first
+    }.join('').split(';')
+    
+    begin
+      res[:video_urls] = scripts.detect{|i| i =~ /var ary_spare_sources/}.scan(/http[^\"\']+/).map{|i| URI.decode i}
+    rescue => e
+      STDERR.puts e
+      STDERR.puts '!!spare videos not found.'
+      res[:video_urls] = Array.new
+    end
+    begin
+      res[:video_urls] << scripts.delete_if{|i|
+        !(i =~ /var +display_movie_url += +/)
+      }.map{|i|
+        URI.decode i.scan(/http[^\"\']+/).first
+      }.first
+    rescue => e
+      STDERR.puts e
+      STDERR.puts '!!video_urls[0] not detected'
+    end
+
     res[:title] = doc.xpath('//h1[@id="movie_title"]').first.text
     res[:url] = url
     res[:page_id] = url.scan(/\/(\d+)$/).first.first.to_i
@@ -65,5 +74,8 @@ if $0 == __FILE__
   himado = Himado.new
   # p videos = himado.videos({:keyword => 'Steins;Gate'})
   p videos = himado.videos
-  p himado.video(videos.first[:url])
+  videos[0...10].each do |v|
+    p himado.video(v[:url])
+  end
+  #p himado.video(videos[2][:url])
 end

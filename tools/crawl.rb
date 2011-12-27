@@ -38,10 +38,17 @@ loop do
         next
       end
       puts video[:title] + ' - ' + video[:url]
-      next if video[:video_url].to_s.size < 1 or !(video[:video_url].to_s =~ /^http.+/)
-      video[:crawl_at] = Time.now.to_i
-      unless Video.where(:video_url => video[:video_url]).count > 0
-        puts ' => saved!' if Video.new(video).save
+      video[:video_urls].each do |url|
+        next if url.to_s.size < 1 or !(url.to_s =~ /^https?:\/\/.+/)
+        v = {:video_url => url}
+        video.keys.each do |k|
+          next if k == :video_urls
+          v[k] = video[k]
+        end
+        v[:crawl_at] = Time.now.to_i
+        unless Video.where(:video_url => url).count > 0
+          puts " => saved! (#{url})" if Video.new(v).save
+        end
       end
       sleep 5
     }
