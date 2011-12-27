@@ -18,12 +18,19 @@ end
 loop do
   videos = Video.not_in(:hide => [true]).where(:file => nil,
                                                :video_url => /^http.+/,
-                                               :error_count.lt => @@conf['retry']).asc(:error_count)
-  interval = params[:interval].to_i
+                                               :error_count.lt => @@conf['retry'],
+                                               :skip_download => false).asc(:error_count)
+
   if videos.count > 0
     puts "#{videos.count} videos in queue"
     video = videos.first
-    file_exists = Video.not_in(:hide => [true]).where(:file.ne => nil, :url => video.url).count > 0
+    
+    if Video.not_in(:hide => [true]).where(:file.ne => nil, :url => video.url).count > 0
+      video.skip_download = true
+      puts "#{video.title} already downloaded, skipped. (#{video.video_url})"
+      video.save
+      next
+    end
     puts video.title + ' - ' + video.url
     fname = Digest::MD5.hexdigest(video.video_url)
     http_opt = Hash.new
@@ -33,7 +40,7 @@ loop do
       }
     end
     begin
-      data = file_exists ? nil : open(video[:video_url], http_opt).read
+      data = open(video[:video_url], http_opt).read
     rescue => e
       STDERR.puts e
       data = nil
@@ -52,10 +59,9 @@ loop do
     else
       video.error_count += 1
       video.save
-      interval = 3
     end
   end
 
   break unless params[:loop]
-  sleep interval
+  sleep params[:interval].to_i
 end

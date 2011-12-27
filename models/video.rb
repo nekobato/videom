@@ -11,6 +11,7 @@ class Video
   field :md5, :type => String
   field :exif, :type => Hash
   field :hide, :type => Boolean, :default => false
+  field :skip_download, :type => Boolean, :default => false
   def to_hash
     {
       :id => id,
