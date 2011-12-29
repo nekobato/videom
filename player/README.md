@@ -4,12 +4,6 @@ player
 Install Dependencies
 --------------------
 
-    % gem install sinatra thin sinatra-reloader json haml bundler mongoid bson bson_ext
-
-
-or
-
-
     % gem install bundler
     % bundle install
     
