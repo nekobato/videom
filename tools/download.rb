@@ -2,6 +2,7 @@
 require File.dirname(__FILE__)+'/helper'
 require 'digest/md5'
 require 'FileUtils'
+require 'mini_exiftool'
 require 'curb'
 
 parser = ArgsParser.parser
@@ -59,6 +60,8 @@ loop do
           end
         }
       }
+      exif = MiniExiftool.new "#{@@dir}/#{fname}"
+      raise "#{exif['mime_type']} is not video file" unless exif['mime_type'] =~ /^video\/.+/i
       video[:file] = fname
       video[:download_at] = Time.now.to_i
       video.save
