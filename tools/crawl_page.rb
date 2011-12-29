@@ -22,6 +22,7 @@ if parser.has_option(:help) or !parser.has_param(:url)
 end
 
 loop do
+  http_opt = {}
   if parser.has_params([:basic_user, :basic_pass])
     http_opt = {
       :http_basic_authentication => [params[:basic_user], params[:basic_pass]]
