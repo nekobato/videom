@@ -41,6 +41,7 @@ loop do
       open("#{@@dir}/#{fname}", 'w+'){|out|
         $VERBOSE = nil
         Curl::Easy.perform(video.video_url){|easy|
+          easy.max_redirects = 5
           if video.http_opt
             easy.http_auth_types = [:basic, :digest]
             easy.username = video.http_opt['user']
