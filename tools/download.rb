@@ -28,7 +28,7 @@ loop do
   if videos.count > 0
     puts "#{videos.count} videos in queue"
     video = videos.first
-    if video.url =~ /http:\/\/himado.in/ and Video.not_in(:hide => [true]).where(:file.ne => nil, :url => video.url).count > 0
+    if video.url =~ /^http:\/\/himado.in\// and Video.not_in(:hide => [true]).where(:file.ne => nil, :url => video.url).count > 0
       video.skip_download = true
       puts "#{video.title} already downloaded, skipped. (#{video.video_url})"
       video.save
