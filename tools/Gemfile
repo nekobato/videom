@@ -1,0 +1,9 @@
+source :rubygems
+
+gem 'bson'
+gem 'bson_ext'
+gem 'mongoid','>=2.2','<2.3'
+gem 'json'
+gem 'ArgsParser'
+gem 'nokogiri'
+gem 'curb'

@@ -46,7 +46,7 @@ loop do
       :video_url => u,
       :crawl_at => Time.now.to_i,
       :url => params[:url],
-      :http_opt => http_opt
+      :http_opt => { :user => params[:basic_user].to_s, :pass => params[:basic_pass].to_s }
     }
     puts v[:title] + ' - ' + v[:url]
     next if Video.where(:video_url => u).count > 0

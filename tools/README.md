@@ -4,7 +4,9 @@ tools
 Install Dependencies
 --------------------
 
-    % gem install mongoid bson bson_ext nokogiri ArgsParser
+    % brew install curl
+    % gem install bundler
+    % bundle install
 
 crawl
 -----
