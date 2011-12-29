@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source :rubygems
 
 gem 'rack'
 gem 'sinatra'
@@ -6,6 +6,6 @@ gem 'thin'
 gem 'sinatra-reloader'
 gem 'bson'
 gem 'bson_ext'
-gem 'mongoid','2.0.2'
+gem 'mongoid','>=2.2','<2.3'
 gem 'json'
 gem 'haml'
