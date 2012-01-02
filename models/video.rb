@@ -13,6 +13,8 @@ class Video
   field :hide, :type => Boolean, :default => false
   field :skip_download, :type => Boolean, :default => false
   field :http_opt, :type => Hash, :default => {}
+  field :crawl_at, :type => Integer
+  field :download_at, :type => Integer
   def to_hash
     {
       :id => id,
