@@ -7,7 +7,7 @@ require 'mini_exiftool'
 parser = ArgsParser.parser
 parser.bind(:loop, :l, 'do loop', false)
 parser.comment(:path, 'directory path')
-parser.comment(:filter, 'download file pattern', '.+\.(mp4|mov|flv)$')
+parser.comment(:filter, 'download file pattern', '.+\.(mp4|mov|flv|mpe?g|avi)$')
 parser.bind(:interval, :i, 'loop interval (sec)', 600)
 parser.bind(:help, :h, 'show help')
 first, params = parser.parse(ARGV)

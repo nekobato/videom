@@ -9,7 +9,7 @@ require 'kconv'
 parser = ArgsParser.parser
 parser.bind(:loop, :l, 'do loop', false)
 parser.comment(:url, 'URL of page')
-parser.comment(:filter, 'download file pattern', '.+\.(mp4|mov|flv)$')
+parser.comment(:filter, 'download file pattern', '.+\.(mp4|mov|flv|mpe?g|avi)$')
 parser.comment(:basic_user, 'basic auth user')
 parser.comment(:basic_pass, 'basic auth passwd')
 parser.bind(:interval, :i, 'loop interval (sec)', 600)
