@@ -9,6 +9,7 @@
       var video_id = "#{@video.id}"
       var tags = #{@video.tags.to_json};
     %script{:type => 'text/javascript', :src => "#{app_root}/js/jquery.js"}
+    %script{:type => 'text/javascript', :src => "#{app_root}/js/jquery.editable.js"}
     %script{:type => 'text/javascript', :src => "#{app_root}/js/util.js"}
     %script{:type => 'text/javascript', :src => "#{app_root}/js/video.js"}
   %body
@@ -16,7 +17,8 @@
       %div#head
         %p
           %a{:href => app_root}= @title
-        %h1= @video.title
+        %h1
+          %span.editable= @video.title
         %h2 info
         - if @video.exif
           %ul

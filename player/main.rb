@@ -70,11 +70,13 @@ end
 
 post '/v/*.json' do
   @vid = params[:splat].first.to_s
-  @tags = params['tags'].delete_if{|tag| tag.to_s.size < 1}.uniq
+  @tags = params['tags'].delete_if{|tag| tag.to_s.size < 1}.uniq rescue @tags = nil
+  @title = params['title']
   begin
     @video = Video.find(@vid)
     raise "video (#{@vid}) not found" if !@video or @video.hide
-    @video.tags = @tags
+    @video.tags = @tags if @tags
+    @video.title = @title if @title
     @video.save
     @mes = {
       :error => false,

@@ -1,6 +1,17 @@
 
 var fullscreen = false;
 $(function(){
+    $('h1 .editable').editable('click', function(e){
+        if( e.value.length < 1) return;
+        var post_data = {title : e.value};
+        $.post(app_root+'/v/'+video_id+'.json', post_data, function(e){
+            if(e.error) alert(e.message);
+            else{
+            }
+        }, 'json');
+
+    });
+
     display_tags(tags);
     $('#tag_ctrls #edit').hide();
 

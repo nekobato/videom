@@ -4,7 +4,15 @@ div#tags {
 }
 
 h1, h2 {
-    margin-bottom : 0px;
+  margin-bottom : 0px;
+}
+
+h1 .editable {
+  width : 800px;
+}
+
+input.editable {
+  font-size : smaller;
 }
 
 ul {
