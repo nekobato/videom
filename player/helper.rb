@@ -6,6 +6,7 @@ require 'mongoid'
 require File.dirname(__FILE__)+'/../models/video'
 require 'yaml'
 require 'json'
+require 'haml'
 
 begin
   @@conf = YAML::load open(File.dirname(__FILE__)+'/../config.yaml').read
