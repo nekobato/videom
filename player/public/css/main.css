@@ -18,5 +18,6 @@ div#main {
 }
 
 .editable {
+  padding : 4px;
   background-color : #FFA;
 }

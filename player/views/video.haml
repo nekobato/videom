@@ -34,14 +34,9 @@
               source : #{@video.url}
         %h2 tag
         %div#tags
-          (empty)
-        %div#tag_ctrls
-          %div#edit
-            %input{:type => :text, :size => 100, :id => 'tags'}
-            %input{:type => :button, :value => 'save', :id => 'btn_save_tag'}
-            %input{:type => :button, :value => 'cancel', :id => 'btn_cancel_tag'}
-          %div#default
-            %input{:type => :button, :value => 'edit', :id => 'btn_edit_tag'}
+          %span.tags
+            (empty)
+          %input{:type => :button, :class => 'btn_edit', :value => 'edit'}
       %div#main
         - @speed = 1.0
         %video{:controls => 'controls', :width => 800, :height => 450, :playbackRate => @speed, :poster => "#{app_root}/#{@@conf['thumb_dir']}/#{@video.thumb_gif}"}
