@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require File.dirname(__FILE__)+'/helper'
+require File.dirname(__FILE__)+'/init'
 
 parser = ArgsParser.parser
 parser.bind(:loop, :l, 'do loop', false)
@@ -16,7 +15,7 @@ end
 himado = Himado.new
 
 loop do
-  @@conf['tags'].each{|tag|
+  Conf['tags'].each{|tag|
     puts "tag : #{tag}"
     begin
       videos = himado.videos(:keyword => tag)

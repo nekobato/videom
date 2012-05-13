@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__)+'/helper'
-require 'digest/md5'
-require 'FileUtils'
-require 'mini_exiftool'
+require File.dirname(__FILE__)+'/init'
 
 parser = ArgsParser.parser
 parser.bind(:loop, :l, 'do loop', false)

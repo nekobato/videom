@@ -15,7 +15,7 @@
         %a{:href => app_root}
           %h1= @title
         - if @tag.to_s.size > 0
-          tag : #{escape_html @tag}
+          tag : #{@tag}
         %div#video_count
           #{@video_count} videos
         %div#search
@@ -27,7 +27,7 @@
           %li
             %a{:href => "#{app_root}/v/#{v.id}"}
               - if v.thumb_gif
-                %img{:src => "#{app_root}/#{@@conf['thumb_dir']}/#{v.thumb_gif}"}
+                %img{:src => "#{app_root}/#{Conf['thumb_dir']}/#{v.thumb_gif}"}
               #{v.title}
             %ul
               - if v.tags
@@ -35,7 +35,7 @@
                   tag : 
                   - for tag in v.tags
                     %a{:href => "#{app_root}/tag/#{tag}", :class => 'tag'}
-                      [#{escape_html tag}]
+                      [#{tag}]
               - if v.exif
                 %li.filetype
                   type : #{v.exif['MIMEType']}

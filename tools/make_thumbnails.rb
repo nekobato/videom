@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require File.dirname(__FILE__)+'/helper'
+require File.dirname(__FILE__)+'/init'
 
 parser = ArgsParser.parser
 parser.bind(:loop, :l, 'do loop', false)
@@ -19,7 +18,7 @@ if parser.has_option(:help) or !parser.has_params([:video2gif])
 end
 
 loop do
-  videos = Video.not_in(:hide => [true]).where(:file => /.+/, :exif.exists => true, :thumb_gif.exists => false)
+  videos = Video.find_queue_makethumbnail
   videos.each do |v|
     puts "#{v.title}(id:#{v.id}) - #{videos.count} videos in thumbnail queue"
     file = "#{@@dir}/#{v.file}"

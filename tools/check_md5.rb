@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require 'digest/md5'
-require File.dirname(__FILE__)+'/helper'
+require File.dirname(__FILE__)+'/init'
 
 parser = ArgsParser.parser
 parser.bind(:loop, :l, 'do loop', false)
@@ -15,7 +13,7 @@ if parser.has_option(:help)
 end
 
 loop do
-  videos = Video.where(:file => /.+/, :md5 => nil).desc(:_id)
+  videos = Video.find_queue_checkmd5
   puts "#{videos.count} files in queue"
   videos.each do |v|
     file = "#{@@dir}/#{v.file}"

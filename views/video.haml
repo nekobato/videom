@@ -39,8 +39,8 @@
           %input{:type => :button, :class => 'btn_edit', :value => 'edit'}
       %div#main
         - @speed = 1.0
-        %video{:controls => 'controls', :width => 800, :height => 450, :playbackRate => @speed, :poster => "#{app_root}/#{@@conf['thumb_dir']}/#{@video.thumb_gif}"}
-          %source{:src => "#{app_root}/#{@@conf['video_dir']}/#{@video.file}"}
+        %video{:controls => 'controls', :width => 800, :height => 450, :playbackRate => @speed, :poster => "#{app_root}/#{Conf['thumb_dir']}/#{@video.thumb_gif}"}
+          %source{:src => "#{app_root}/#{Conf['video_dir']}/#{@video.file}"}
         %div#ctrls
           %input{:type => 'button', :class => 'btn', :id => 'btn_fullscreen', :value => 'fullscreen'}
 

@@ -26,4 +26,58 @@ class Video
       :exif => exif
     }
   end
+
+  def available?
+    hide != true and file.to_s.size > 0 and md5.to_s.size > 0
+  end
+
+  def delete_file!
+    vpath = "#{File.dirname(__FILE__)}/../#{Conf['video_dir']}/#{file}"
+    File.delete vpath if File.exists? vpath
+    gpath = "#{File.dirname(__FILE__)}/../#{Conf['thumb_dir']}/#{thumb_gif}"
+    File.delete gpath if File.exists? gpath
+    self.file = nil
+    self.hide = true
+    self.save
+  end
+
+  def self.find_queue_download
+    self.not_in(:hide => [true]).
+      where(:file => nil,
+            :video_url => /^http.+/,
+            :error_count.lt => Conf['retry'],
+            :skip_download => false).
+      asc(:error_count)
+  end
+
+  def self.find_queue_checkmd5
+    self.where(:file => /.+/, :md5 => nil).desc(:_id)
+  end
+
+  def self.find_queue_checkexif
+    self.not_in(:hide => [true]).
+      where(:file => /.+/, :md5 => /.+/, :exif => nil)
+  end
+
+  def self.find_queue_makethumbnail
+    self.not_in(:hide => [true]).
+      where(:file => /.+/, :exif.exists => true, :thumb_gif.exists => false)
+  end
+
+  def self.find_availables
+    not_in(:hide => [true]).
+      not_in(:file => [nil]).
+      where(:file.exists => true)
+  end
+
+  def self.find_by_tag(tag)
+    where(:tags => /^#{tag}$/).find_availables
+  end
+
+  def self.find_by_word(word)
+    self.all(:conditions =>
+             {"$or" => [{:title => /#{word}/i},
+                        {:tags => /#{word}/i},
+                        {:url => /#{word}/i}]}).find_availables
+  end
 end

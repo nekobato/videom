@@ -12,8 +12,7 @@ videos.each{|v|
   if gets =~ /y/i
     begin
       fname = "#{@@dir}/#{v.file}"
-      File.delete fname
-      v.delete
+      v.delete_file!
       puts " => #{fname} deleted"
     rescue => e
       STDERR.puts e

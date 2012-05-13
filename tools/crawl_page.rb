@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require File.dirname(__FILE__)+'/helper'
+require File.dirname(__FILE__)+'/init'
 require 'open-uri'
 require 'nokogiri'
 require 'uri'

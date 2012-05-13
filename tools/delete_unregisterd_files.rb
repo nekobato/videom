@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
-# -*- coding: undecided -*-
+# -*- coding: utf-8 -*-
 # DBに登録されていないファイルを削除する
-require File.dirname(__FILE__)+'/helper'
-require 'FileUtils'
+require File.dirname(__FILE__)+'/init'
 
 Dir.glob("#{@@dir}/*").each{|f|
   fname = f.split(/\//).last

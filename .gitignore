@@ -3,7 +3,7 @@
 *#
 .*
 *.lock
-config.yaml
+config.yml
 *.mov
 videos
 thumbs
