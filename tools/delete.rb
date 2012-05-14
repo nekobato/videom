@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__)+'/helper'
-require 'FileUtils'
+require File.dirname(__FILE__)+'/init'
 
 videos = Video.where(:file => /.+/, :video_url => /^http.+/)
 

@@ -1,18 +1,18 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__)+'/init'
 
-parser = ArgsParser.parser
-parser.bind(:loop, :l, 'do loop', false)
-parser.bind(:interval, :i, 'loop interval (sec)', 5)
-parser.comment(:video2gif, 'video2gif command path')
-parser.comment(:gif_fps, 'gif fps', 1)
-parser.comment(:video_fps, 'video fps', 0.01)
-parser.comment(:size, 'size', '160x90')
-parser.comment(:tmp_dir, 'tmp_dir', '/var/tmp/video2gif')
-parser.bind(:help, :h, 'show help')
-first, params = parser.parse(ARGV)
+parser = ArgsParser.parse ARGV do
+  arg :loop, 'do loop', :alias => :l, :default => false
+  arg :interval, 'loop interval (sec)', :alias => :i, :default => 5
+  arg :video2gif, 'video2gif command path'
+  arg :gif_fps, 'gif fps', :default => 1
+  arg :video_fps, 'video fps', :default => 0.01
+  arg :size, 'size', :default => '160x90'
+  arg :tmp_dir, 'tmp_dir', :default => '/var/tmp/video2gif'
+  arg :help, 'show help', :alias => :h
+end
 
-if parser.has_option(:help) or !parser.has_params([:video2gif])
+if parser.has_option? :help or !parser.has_param? :video2gif
   puts parser.help
   exit
 end
@@ -25,7 +25,7 @@ loop do
     begin
       raise 'file not exists' unless File.exists? file
       out = "#{@@thumb_dir}/#{v.id}.gif"
-      puts cmd = "#{params[:video2gif]} -i #{file} -o #{out} -video_fps #{params[:video_fps]} -gif_fps #{params[:gif_fps]} -size #{params[:size]} -tmp_dir #{params[:tmp_dir]}"
+      puts cmd = "#{parser[:video2gif]} -i #{file} -o #{out} -video_fps #{parser[:video_fps]} -gif_fps #{parser[:gif_fps]} -size #{parser[:size]} -tmp_dir #{parser[:tmp_dir]}"
       system cmd
       unless File.exists? out
         v.hide = true
@@ -39,8 +39,6 @@ loop do
       v.hide = true
     end
   end
-  break unless params[:loop]
-  sleep params[:interval].to_i
+  break unless parser[:loop]
+  sleep parser[:interval].to_i
 end
-
-

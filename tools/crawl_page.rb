@@ -5,39 +5,39 @@ require 'nokogiri'
 require 'uri'
 require 'kconv'
 
-parser = ArgsParser.parser
-parser.bind(:loop, :l, 'do loop', false)
-parser.comment(:url, 'URL of page')
-parser.comment(:filter, 'download file pattern', '.+\.(mp4|mov|flv|mpe?g|avi)$')
-parser.comment(:basic_user, 'basic auth user')
-parser.comment(:basic_pass, 'basic auth passwd')
-parser.bind(:interval, :i, 'loop interval (sec)', 600)
-parser.bind(:help, :h, 'show help')
-first, params = parser.parse(ARGV)
+parser = ArgsParser.parse ARGV do
+  arg :loop, 'do loop', :alias => :l, :default => false
+  arg :url, 'URL of page'
+  arg :filter, 'download file pattern', :alias => '.+\.(mp4|mov|flv|mpe?g|avi)$'
+  arg :basic_user, 'basic auth user'
+  arg :basic_pass, 'basic auth passwd'
+  arg :interval, 'loop interval (sec)', :alias => :i, :default => 600
+  arg :help, 'show help', :alias => :h
+end
 
-if parser.has_option(:help) or !parser.has_param(:url)
+if parser.has_option? :help or !parser.has_param? :url
   puts parser.help
   exit
 end
 
 loop do
   http_opt = {}
-  if parser.has_params([:basic_user, :basic_pass])
+  if parser.has_param?(:basic_user, :basic_pass)
     http_opt = {
-      :http_basic_authentication => [params[:basic_user], params[:basic_pass]]
+      :http_basic_authentication => [parser[:basic_user], parser[:basic_pass]]
     }
   end
   
-  doc = Nokogiri::HTML open(params[:url], http_opt).read.toutf8
+  doc = Nokogiri::HTML open(parser[:url], http_opt).read.toutf8
   urls = doc.xpath('//a').to_a.map{|i|
     if URI.parse(i['href']).class == URI::Generic
-      res = params[:url].gsub(/\/$/, '') + '/' + i['href']
+      res = parser[:url].gsub(/\/$/, '') + '/' + i['href']
     else
       res = i['href']
     end
     res
   }.delete_if{|i|
-    !(i =~ Regexp.new(params[:filter]))
+    !(i =~ Regexp.new(parser[:filter]))
   }
   
   urls.each{|u|
@@ -45,14 +45,14 @@ loop do
       :title => URI.decode(u.split(/\//).last),
       :video_url => u,
       :crawl_at => Time.now.to_i,
-      :url => params[:url],
-      :http_opt => { :user => params[:basic_user].to_s, :pass => params[:basic_pass].to_s }
+      :url => parser[:url],
+      :http_opt => { :user => parser[:basic_user].to_s, :pass => parser[:basic_pass].to_s }
     }
     puts v[:title] + ' - ' + v[:url]
     next if Video.where(:video_url => u).count > 0
     puts ' => saved!' if Video.new(v).save
   }
 
-  break unless params[:loop]
-  sleep params[:interval].to_i
+  break unless parser[:loop]
+  sleep parser[:interval].to_i
 end

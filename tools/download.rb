@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__)+'/init'
 
-parser = ArgsParser.parser
-parser.bind(:loop, :l, 'do loop', false)
-parser.bind(:interval, :i, 'loop interval (sec)', 5)
-parser.bind(:help, :h, 'show help')
-parser.comment(:min_speed, 'min download speed (kbps)', 100)
-first, params = parser.parse(ARGV)
+parser = ArgsParser.parse ARGV do
+  arg :loop, 'do loop', :alias => :l, :default => false
+  arg :interval, 'loop interval (sec)', :alias => :i, :default => 5
+  arg :help, 'show help', :alias => :h
+  arg :min_speed, 'min download speed (kbps)', :alias => 100
+end
 
-if parser.has_option(:help)
+if parser.has_option? :help
   puts parser.help
   exit
 end
@@ -44,7 +44,7 @@ loop do
           easy.on_body do |data|
             out.print data
             puts "#{easy.download_speed/1000}kbps" if (stream_count += 1) % 1000 == 0
-            if Time.now.to_i-20 > start_at and easy.download_speed/1000 < params[:min_speed].to_i
+            if Time.now.to_i-20 > start_at and easy.download_speed/1000 < parser[:min_speed].to_i
               raise DownloadError.new("download too slow (#{easy.download_speed/1000}kbps), #{stream_count} blocks received.")
             end
           end
@@ -63,6 +63,6 @@ loop do
     end
   end
 
-  break unless params[:loop]
-  sleep params[:interval].to_i
+  break unless parser[:loop]
+  sleep parser[:interval].to_i
 end

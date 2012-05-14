@@ -1,25 +1,25 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__)+'/init'
 
-parser = ArgsParser.parser
-parser.bind(:loop, :l, 'do loop', false)
-parser.comment(:path, 'directory path')
-parser.comment(:filter, 'download file pattern', '.+\.(mp4|mov|flv|mpe?g|avi)$')
-parser.bind(:interval, :i, 'loop interval (sec)', 600)
-parser.bind(:help, :h, 'show help')
-first, params = parser.parse(ARGV)
+parser = ArgsParser.parse ARGV do
+  arg :loop, 'do loop', :alias => :l, :default => false
+  arg :path, 'directory path'
+  arg :filter, 'download file pattern', :default => '.+\.(mp4|mov|flv|mpe?g|avi)$'
+  arg :interval, 'loop interval (sec)', :alias => :i, :default => 600
+  arg :help, 'show help', :alias => :h
+end
 
-if parser.has_option(:help) or !parser.has_param(:path)
+if parser.has_option? :help or !parser.has_param? :path
   puts parser.help
   exit
 end
 
-params[:path] = params[:path].gsub(/\/$/,'')
+parser[:path] = parser[:path].gsub(/\/$/,'')
 
-filter = /#{params[:filter]}/i
+filter = /#{parser[:filter]}/i
 
 loop do
-  files = Dir.glob("#{params[:path]}/*").delete_if{|i|
+  files = Dir.glob("#{parser[:path]}/*").delete_if{|i|
     !(i =~ filter)
   }
   
@@ -46,6 +46,6 @@ loop do
     puts " => saevd!" if Video.new(v).save
   end
   
-  break unless params[:loop]
-  sleep params[:interval].to_i
+  break unless parser[:loop]
+  sleep parser[:interval].to_i
 end

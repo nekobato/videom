@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'FileUtils'
-require 'ArgsParser'
+require 'args_parser'
 require 'digest/md5'
 require 'mini_exiftool'
 require 'curb'

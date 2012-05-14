@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__)+'/init'
 
-parser = ArgsParser.parser
-parser.bind(:loop, :l, 'do loop', false)
-parser.bind(:interval, :i, 'loop interval (sec)', 600)
-parser.bind(:help, :h, 'show help')
-first, params = parser.parse(ARGV)
+parser = ArgsParser.parse ARGV do
+  arg :loop, 'do loop', :alias => :l, :default => false
+  arg :interval, 'loop interval (sec)', :alias => :i, :default => 600
+  arg :help, 'show help', :alias => :h
+end
 
-if parser.has_option(:help)
+if parser.has_option? :help
   puts parser.help
   exit
 end
@@ -53,6 +53,6 @@ loop do
     }
   }
 
-  break unless params[:loop]
-  sleep params[:interval].to_i
+  break unless parser[:loop]
+  sleep parser[:interval].to_i
 end
