@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'bundler/setup'
-
-require File.dirname(__FILE__)+'/../libs/himado'
+require 'pp'
 
 [:inits, :models].each do |cat|
   Dir.glob("#{File.dirname(__FILE__)}/../#{cat}/*.rb").each do |rb|
@@ -11,9 +10,4 @@ require File.dirname(__FILE__)+'/../libs/himado'
   end
 end
 
-puts "available videos : #{Video.find_availables.count}"
-puts "download queue : #{Video.find_queue_download.count}"
-puts "check md5 queue : #{Video.find_queue_checkmd5.count}"
-puts "check exif queue : #{Video.find_queue_checkexif.count}"
-puts "make thumbnail queue : #{Video.find_queue_makethumbnail.count}"
-
+pp Video.stats

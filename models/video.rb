@@ -80,4 +80,15 @@ class Video
                         {:tags => /#{word}/i},
                         {:url => /#{word}/i}]}).find_availables
   end
+
+  def self.stats
+    {:availables => Video.find_availables.count,
+      :queue => {
+        :download => Video.find_queue_download.count,
+        :check_md5 => Video.find_queue_checkmd5.count,
+        :check_exif => Video.find_queue_checkexif.count,
+        :make_thumbnail =>Video.find_queue_makethumbnail.count
+      }
+    }
+  end
 end
