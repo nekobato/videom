@@ -59,3 +59,8 @@ get '/v/:id' do
     haml :video
   end
 end
+
+get '/stats' do
+  @stats = Video.stats
+  haml :stats
+end

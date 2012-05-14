@@ -1,0 +1,25 @@
+!!! XHTML
+%html
+  %head
+    %title= @title
+    %link{:rel => 'stylesheet', :href => "#{app_root}/css/main.css", :type => 'text/css'}
+  %body
+    %div#content
+      %div#head
+        %a{:href => app_root}
+          %h1= @title
+      %div#main
+        %ul
+          %li
+            available videos : #{@stats[:availables]}
+          %li
+            download queue #{@stats[:queue][:download]}
+          %li
+            check md5 queue #{@stats[:queue][:check_md5]}
+          %li
+            check exif queue #{@stats[:queue][:check_exif]}
+          %li
+            make thumbnail queue #{@stats[:queue][:make_thumbnail]}
+        - api = "#{app_root}/stats.json"
+        %div
+          %a{:href => api}= api

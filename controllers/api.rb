@@ -3,6 +3,10 @@ before '/*.json' do
   content_type 'application/json'
 end
 
+get '/stats.json' do
+  @mes = Video.stats.to_json
+end
+
 get '/v/*.json' do
   @vid = params[:splat].first.to_s
   begin
