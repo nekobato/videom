@@ -5,14 +5,9 @@ require 'args_parser'
 require 'digest/md5'
 require 'mini_exiftool'
 require 'curb'
-require File.dirname(__FILE__)+'/../libs/himado'
+require File.dirname(__FILE__)+'/../bootstrap'
 
-[:inits, :models].each do |cat|
-  Dir.glob("#{File.dirname(__FILE__)}/../#{cat}/*.rb").each do |rb|
-    puts "load #{rb}"
-    require rb
-  end
-end
+Bootstrap.init :inits, :models, :libs
 
 begin
   @@dir = File.dirname(__FILE__)+'/../'+Conf['video_dir']

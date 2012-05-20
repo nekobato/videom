@@ -15,6 +15,13 @@ works with
 * MongoDB 2.0+
 
 
+Install Dependencies
+--------------------
+
+    % gem install bundler foreman
+    % bundle install
+
+
 config
 ------
 
@@ -26,9 +33,9 @@ edit config.yml.
 Run
 ---
 
-    % ruby development.ru
+    % foreman start
 
-open [http://localhost:8125](http://localhost:8125)
+open [http://localhost:8080](http://localhost:8080)
 
 
 Deploy
@@ -39,4 +46,4 @@ use Passenger with "config.ru"
 Console
 -------
 
-    % ruby -Ku bin/console
+    % ruby -Ku bin/console.rb

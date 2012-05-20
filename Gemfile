@@ -1,5 +1,6 @@
 source :rubygems
 
+gem 'foreman'
 gem 'bson'
 gem 'bson_ext'
 gem 'mongoid','>=2.4'

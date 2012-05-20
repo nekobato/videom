@@ -1,20 +1,48 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'rack'
-require 'sinatra/reloader' if development?
 require 'yaml'
-require 'json'
-require 'haml'
 
-[:inits, :helpers, :models ,:controllers].each do |dir|
-  Dir.glob(File.dirname(__FILE__)+"/#{dir}/*.rb").sort.each do |rb|
-    puts "loading #{rb}"
-    require rb
+class Bootstrap
+  def self.default
+    []
+  end
+
+  def self.init(*inits)
+    [default, inits].flatten.uniq.each do |cat|
+      Dir.glob("#{File.dirname(__FILE__)}/#{cat}/*.rb").each do |rb|
+        puts "load #{rb}"
+        require rb
+      end
+    end
   end
 end
 
-Conf['dir'] = File.dirname(__FILE__)+'/'+Conf['video_dir']
-Conf['thumb_dir'] = File.dirname(__FILE__)+'/'+Conf['thumb_dir']
+class Conf
+  def self.[](key)
+    conf[key]
+  end
 
+  def self.[]=(key,value)
+    conf[key] = value
+  end
 
-set :haml, :escape_html => true
+  def self.conf_file
+    File.dirname(__FILE__)+'/config.yml'
+  end
+
+  def self.conf
+    begin
+      @@conf ||= YAML::load self.open_conf_file.read
+    rescue => e
+      STDERR.puts e
+      STDERR.puts "config.yml load error!!"
+      exit 1
+    end
+  end
+
+  def self.open_conf_file(opt=nil, &block)
+    if block_given?
+      yield open(self.conf_file, opt)
+    else
+      return open(self.conf_file, opt)
+    end
+  end
+end
