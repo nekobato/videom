@@ -19,10 +19,7 @@ loop do
     puts "tag : #{tag}"
     begin
       videos = himado.videos(:keyword => tag)
-    rescue => e
-      STDERR.puts e
-      next
-    rescue Timeout::Error => e
+    rescue StandardError, Timeout::Error => e
       STDERR.puts e
       next
     end
