@@ -1,3 +1,5 @@
+$stdout.sync = true
+
 require 'rubygems'
 require 'bundler/setup'
 require 'FileUtils'
@@ -18,3 +20,4 @@ rescue => e
   STDERR.puts e
   exit 1
 end
+

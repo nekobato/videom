@@ -42,7 +42,7 @@ loop do
       :crawl_at => Time.now.to_i,
       :download_at => Time.now.to_i
     }
-    p v
+    puts "#{v.video_url}"
     puts " => saevd!" if Video.new(v).save
   end
   

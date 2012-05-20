@@ -18,6 +18,7 @@ works with
 Install Dependencies
 --------------------
 
+    % brew install curl exiftool
     % gem install bundler foreman
     % bundle install
 
@@ -34,6 +35,10 @@ Run
 ---
 
     % foreman start
+
+or
+
+    % foreman start web
 
 open [http://localhost:8080](http://localhost:8080)
 
