@@ -61,7 +61,11 @@ class Video
 
   def self.find_queue_makethumbnail
     self.not_in(:hide => [true]).
-      where(:file => /.+/, :exif.exists => true, :thumb_gif.exists => false)
+      where(:file => /.+/, :exif.exists => true,
+            "$or" => [
+                      {:thumb_gif.exists => false},
+                      {:thumb_gif => nil}
+                     ])
   end
 
   def self.find_availables
