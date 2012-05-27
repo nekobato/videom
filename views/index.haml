@@ -53,20 +53,8 @@
       %div#foot
         %div#page_nav
           - if @page > 1
-            - if @tag
-              - prev_page = "#{app_root}/tag/#{@tag}?page=#{@page-1}&per_page=#{@per_page}"
-            - elsif @word
-              - prev_page = "#{app_root}/search/#{@word}?page=#{@page-1}&per_page=#{@per_page}"
-            - else
-              - prev_page = "#{app_root}/?page=#{@page-1}&per_page=#{@per_page}"
-            %a{:href => prev_page}
+            %a{:href => prev_page_url}
               page #{@page-1}
           - if @video_count > @per_page*@page
-            - if @tag
-              - next_page = "#{app_root}/tag/#{@tag}?page=#{@page+1}&per_page=#{@per_page}"
-            - elsif @word
-              - next_page = "#{app_root}/search/#{@word}?page=#{@page+1}&per_page=#{@per_page}"
-            - else
-              - next_page = "#{app_root}/?page=#{@page+1}&per_page=#{@per_page}"
-            %a{:href => next_page}
+            %a{:href => next_page_url}
               page #{@page+1}
