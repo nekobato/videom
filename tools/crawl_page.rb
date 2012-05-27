@@ -8,7 +8,7 @@ require 'kconv'
 parser = ArgsParser.parse ARGV do
   arg :loop, 'do loop', :alias => :l, :default => false
   arg :url, 'URL of page'
-  arg :filter, 'download file pattern', :alias => '.+\.(mp4|mov|flv|mpe?g|avi)$'
+  arg :filter, 'download file pattern', :default => '.+\.(mp4|mov|flv|mpe?g|avi)$'
   arg :basic_user, 'basic auth user'
   arg :basic_pass, 'basic auth passwd'
   arg :interval, 'loop interval (sec)', :alias => :i, :default => 600
