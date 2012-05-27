@@ -5,7 +5,7 @@ parser = ArgsParser.parse ARGV do
   arg :loop, 'do loop', :alias => :l, :default => false
   arg :interval, 'loop interval (sec)', :alias => :i, :default => 5
   arg :help, 'show help', :alias => :h
-  arg :min_speed, 'min download speed (kbps)', :alias => 100
+  arg :min_speed, 'min download speed (kbps)', :default => 100
 end
 
 if parser.has_option? :help
