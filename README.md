@@ -40,7 +40,7 @@ or
 
     % foreman start web
 
-open [http://localhost:8080](http://localhost:8080)
+=> http://localhost:5000
 
 
 Deploy

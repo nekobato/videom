@@ -1,4 +1,4 @@
-web: bundle exec rackup config.ru -p 8080 -s thin
+web: bundle exec rackup config.ru -p $PORT -s thin
 crawl: bundle exec ruby tools/crawl.rb -loop -interval 600
 download: bundle exec ruby tools/download.rb -loop -interval 30
 md5: bundle exec ruby tools/check_md5.rb -loop -interval 30
