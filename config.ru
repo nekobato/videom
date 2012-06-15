@@ -9,9 +9,8 @@ require 'yaml'
 require 'json'
 require 'haml'
 require 'sass'
-require 'sys/filesystem'
 require File.dirname(__FILE__)+'/bootstrap'
-Bootstrap.init :inits, :models, :helpers, :controllers
+Bootstrap.init :inits, :libs, :models, :helpers, :controllers
 
 set :haml, :escape_html => true
 

@@ -32,9 +32,9 @@ class Video
   end
 
   def delete_file!
-    vpath = "#{File.dirname(__FILE__)}/../#{Conf['video_dir']}/#{file}"
+    vpath = File.expand_path "../#{Conf['video_dir']}/#{file}", File.dirname(__FILE__)
     File.delete vpath if File.exists? vpath
-    gpath = "#{File.dirname(__FILE__)}/../#{Conf['thumb_dir']}/#{thumb_gif}"
+    gpath = File.expand_path "../#{Conf['thumb_dir']}/#{thumb_gif}", File.dirname(__FILE__)
     File.delete gpath if File.exists? gpath
     self.file = nil
     self.hide = true
@@ -93,7 +93,7 @@ class Video
         :check_exif => Video.find_queue_checkexif.count,
         :make_thumbnail =>Video.find_queue_makethumbnail.count
       },
-      :disk_capacity => disk_capacity
+      :disk_capacity => Disk::capacity
     }
   end
 end

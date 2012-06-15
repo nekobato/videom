@@ -7,14 +7,14 @@ require 'args_parser'
 require 'digest/md5'
 require 'mini_exiftool'
 require 'curb'
-require File.dirname(__FILE__)+'/../bootstrap'
+require File.expand_path '../bootstrap', File.dirname(__FILE__)
 
 Bootstrap.init :inits, :models, :libs
 
 begin
-  @@dir = File.dirname(__FILE__)+'/../'+Conf['video_dir']
+  @@dir = File.expand_path "../#{Conf['video_dir']}", File.dirname(__FILE__)
   FileUtils.mkdir_p(@@dir) unless File.exists? @@dir
-  @@thumb_dir = File.dirname(__FILE__)+'/../'+Conf['thumb_dir']
+  @@thumb_dir = File.expand_path "../#{Conf['thumb_dir']}", File.dirname(__FILE__)
   FileUtils.mkdir_p(@@thumb_dir) unless File.exists? @@thumb_dir
 rescue => e
   STDERR.puts e

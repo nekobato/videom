@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__)+'/init'
+require File.expand_path 'init', File.dirname(__FILE__)
 
 videos = Video.where(:file => /.+/, :video_url => /^http.+/).asc(:_id)
 
