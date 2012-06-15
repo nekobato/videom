@@ -92,7 +92,8 @@ class Video
         :check_md5 => Video.find_queue_checkmd5.count,
         :check_exif => Video.find_queue_checkexif.count,
         :make_thumbnail =>Video.find_queue_makethumbnail.count
-      }
+      },
+      :disk_capacity => disk_capacity
     }
   end
 end
