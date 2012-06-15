@@ -26,6 +26,8 @@ delete
 ------
 
     % ruby -Ku delete.rb
+    % ruby -Ku delete_old_video.rb
+    % yes | ruby -Ku delete_old_video.rb
 
 check EXIF
 ----------
