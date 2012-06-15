@@ -2,7 +2,6 @@
 #*
 *#
 .*
-*.lock
 config.yml
 *.mov
 videos
