@@ -9,6 +9,7 @@ require 'yaml'
 require 'json'
 require 'haml'
 require 'sass'
+require 'sys/filesystem'
 require File.dirname(__FILE__)+'/bootstrap'
 Bootstrap.init :inits, :models, :helpers, :controllers
 
