@@ -6,6 +6,7 @@ mongo :
 
 video_dir : 'videos'
 thumb_dir : 'thumbs'
+disk : '/'
 retry : 3
 per_page : 40
 
