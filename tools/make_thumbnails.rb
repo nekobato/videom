@@ -4,7 +4,8 @@ require File.expand_path 'init', File.dirname(__FILE__)
 parser = ArgsParser.parse ARGV do
   arg :loop, 'do loop', :alias => :l, :default => false
   arg :interval, 'loop interval (sec)', :alias => :i, :default => 5
-  arg :video2gif, 'video2gif command path', :default => `which video2gif`.strip
+  video2gif_path = `which video2gif`.strip
+  arg :video2gif, 'video2gif command path', :default => video2gif_path.size > 0 ? video2gif_path : nil
   arg :gif_fps, 'gif fps', :default => 1
   arg :video_fps, 'video fps', :default => 0.01
   arg :size, 'size', :default => '160x90'
