@@ -27,16 +27,13 @@ loop do
       out = "#{@@thumb_dir}/#{v.id}.gif"
       puts cmd = "#{parser[:video2gif]} -i #{file} -o #{out} -video_fps #{parser[:video_fps]} -gif_fps #{parser[:gif_fps]} -size #{parser[:size]}"
       system cmd
-      unless File.exists? out
-        v.hide = true
-        next
-      else
-        v.thumb_gif = "#{v.id}.gif"
-      end
+      raise 'cannot make thumbnail' unless File.exists? out
+      v.thumb_gif = "#{v.id}.gif"
       v.save
     rescue => e
       STDERR.puts e
       v.hide = true
+      v.save
     end
   end
   break unless parser[:loop]
