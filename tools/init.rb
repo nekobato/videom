@@ -9,7 +9,7 @@ require 'mini_exiftool'
 require 'curb'
 require File.expand_path '../bootstrap', File.dirname(__FILE__)
 
-Bootstrap.init :inits, :models, :libs
+Bootstrap.init :inits, :libs, :models
 
 begin
   @@dir = File.expand_path "../#{Conf['video_dir']}", File.dirname(__FILE__)

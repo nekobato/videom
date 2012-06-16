@@ -20,7 +20,7 @@ Install Dependencies
 
     % brew install curl exiftool
     % gem install bundler foreman
-    % bundle install
+    % bundle install --path vendor/bundle
 
 
 config
