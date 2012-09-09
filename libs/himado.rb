@@ -30,7 +30,7 @@ class Himado
     }.uniq
   end
 
-  def videos_page(page=1, params)
+  def videos_page(page, params)
     (0...page).to_a.map{|i|
       params[:page] = i
       videos(params)
