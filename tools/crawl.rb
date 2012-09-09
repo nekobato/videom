@@ -18,7 +18,7 @@ loop do
   Conf['tags'].each{|tag|
     puts "tag : #{tag}"
     begin
-      videos = himado.videos(:keyword => tag)
+      videos = himado.videos_page(Conf['crawl_page'], :keyword => tag)
     rescue StandardError, Timeout::Error => e
       STDERR.puts e
       next

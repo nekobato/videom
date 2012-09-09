@@ -30,6 +30,13 @@ class Himado
     }.uniq
   end
 
+  def videos_page(page=1, params)
+    (0...page).to_a.map{|i|
+      params[:page] = i
+      videos(params)
+    }.flatten.uniq
+  end
+
   def video(url)
     res = Hash.new
     doc = Nokogiri::HTML open(url).read.toutf8
