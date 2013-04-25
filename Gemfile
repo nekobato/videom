@@ -1,9 +1,8 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem 'foreman'
-gem 'bson'
+gem 'mongoid','~> 2.7'
 gem 'bson_ext'
-gem 'mongoid','>=2.4'
 gem 'rack'
 gem 'sinatra'
 gem 'sinatra-contrib'

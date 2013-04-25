@@ -17,7 +17,7 @@
         - if @tag.to_s.size > 0
           tag : #{@tag}
         %div#video_count
-          #{@video_count} videos [
+          #{@video_count.to_s} videos [
           %a{:href => "#{app_root}/stats"}
             detail
           ]
@@ -54,7 +54,7 @@
         %div#page_nav
           - if @page > 1
             %a{:href => prev_page_url}
-              page #{@page-1}
+              page #{(@page-1).to_s}
           - if @video_count > @per_page*@page
             %a{:href => next_page_url}
-              page #{@page+1}
+              page #{(@page+1).to_s}

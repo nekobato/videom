@@ -10,18 +10,12 @@
           %h1= @title
       %div#main
         %ul
-          %li
-            disk capacity : #{Disk::capacity}GB
-          %li
-            available videos : #{@stats[:availables]}
-          %li
-            download queue #{@stats[:queue][:download]}
-          %li
-            check md5 queue #{@stats[:queue][:check_md5]}
-          %li
-            check exif queue #{@stats[:queue][:check_exif]}
-          %li
-            make thumbnail queue #{@stats[:queue][:make_thumbnail]}
+          %li= "disk capacity : #{Disk::capacity}GB"
+          %li= "available videos : #{@stats[:availables]}"
+          %li= "download queue #{@stats[:queue][:download]}"
+          %li= "check md5 queue #{@stats[:queue][:check_md5]}"
+          %li= "check exif queue #{@stats[:queue][:check_exif]}"
+          %li= "make thumbnail queue #{@stats[:queue][:make_thumbnail]}"
         - api = "#{app_root}/stats.json"
         %div
           %a{:href => api}= api
