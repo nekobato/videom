@@ -41,13 +41,13 @@
                       [#{tag}]
               - if v.exif
                 %li.filetype
-                  type : #{v.exif['MIMEType']}
+                  type : #{v.exif['MIMEType'].to_s}
                 %li.filesize
-                  size : #{v.exif['FileSize']}
+                  size : #{v.exif['FileSize'].to_s}
                 %li.duration
-                  duration : #{v.exif['Duration']}
+                  duration : #{v.exif['Duration'].to_s}
                 %li.imagesize
-                  image size : #{v.exif['ImageSize']}
+                  image size : #{v.exif['ImageSize'].to_s}
                 %li.source
                   source : #{v.url}
       %div#foot
