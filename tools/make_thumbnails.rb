@@ -32,8 +32,6 @@ loop do
       v.save
     rescue => e
       STDERR.puts e
-      v.hide = true
-      v.save
     end
   end
   break unless parser[:loop]
