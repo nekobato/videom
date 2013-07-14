@@ -29,10 +29,11 @@ loop do
       system cmd
       raise 'cannot make thumbnail' unless File.exists? out
       v.thumb_gif = "#{v.id}.gif"
-      v.save
     rescue => e
       STDERR.puts e
+      v.thumb_gif = ""
     end
+    v.save
   end
   break unless parser[:loop]
   sleep parser[:interval].to_i
