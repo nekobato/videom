@@ -47,7 +47,6 @@ class Himado
     begin
       res[:video_urls] = scripts.detect{|i| i =~ /var ary_spare_sources/}.scan(/http[^\"\']+/).map{|i| URI.decode i}
     rescue => e
-      STDERR.puts e
       STDERR.puts '!!spare videos not found.'
       res[:video_urls] = Array.new
     end
@@ -58,10 +57,10 @@ class Himado
         URI.decode i.scan(/http[^\"\']+/).first
       }.first
     rescue => e
-      STDERR.puts e
       STDERR.puts '!!video_urls[0] not detected'
     end
 
+    res[:video_urls].reject{|url| url =~ /(veoh|youtube)/ }
     res[:title] = doc.xpath('//h1[@id="movie_title"]').first.text
     res[:url] = url
     res[:page_id] = url.scan(/\/(\d+)$/).first.first.to_i

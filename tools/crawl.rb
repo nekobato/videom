@@ -27,7 +27,6 @@ loop do
       begin
         video = himado.video(v[:url])
       rescue => e
-        STDERR.puts e
         next
       rescue Timeout::Error => e
         STDERR.puts e
