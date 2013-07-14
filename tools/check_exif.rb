@@ -20,22 +20,8 @@ loop do
     puts "#{v.title} - #{file}"
     begin
       exif = MiniExiftool.new file
-      raise "#{exif['mime_type']} is not video file" unless exif['mime_type'] =~ /^video\/.+/i
-      if !(exif['mime_type'] =~ /^video\/mp4$/i)
-        if exif['video_encoding'] =~ /^H.264$/i
-          vcodec = 'copy'
-          opt = "-ac 2"
-        else
-          vcodec = 'libx264'
-          opt = "-vpre default -ac 2"
-        end
-        acodec = exif['audio_encoding'] =~ /^AAC$/i ? 'copy' : 'libfaac'
-        file_mp4 = "#{file}.mp4"
-        puts cmd = "ffmpeg -y -i #{file} -vcodec #{vcodec} -acodec #{acodec} #{opt} #{file_mp4}"
-        system cmd
-        File.delete file
-        file = file_mp4
-        exif = MiniExiftool.new file
+      unless exif['mime_type'].to_s =~ /^video\/.+/i or exif['MIMEType'].to_s =~ /^video\/.+/i
+        raise "#{exif['mime_type']} is not video file"
       end
     rescue => e
       STDERR.puts e
