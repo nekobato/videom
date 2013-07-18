@@ -60,7 +60,7 @@ class Himado
       STDERR.puts '!!video_urls[0] not detected'
     end
 
-    res[:video_urls].delete_if{|url| url =~ /(veoh|youtube)/ }
+    res[:video_urls].delete_if{|i| i =~ /(veoh|youtube)/ }
     res[:title] = doc.xpath('//h1[@id="movie_title"]').first.text
     res[:url] = url
     res[:page_id] = url.scan(/\/(\d+)$/).first.first.to_i
