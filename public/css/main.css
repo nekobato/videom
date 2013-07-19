@@ -4,8 +4,23 @@ body {
     color : #222;
 }
 
+#head {
+  margin: 20px auto;
+}
+#head > a {
+  text-decoration: none;
+}
+h1 {
+  font-size: 36px;
+  color: #666;
+  text-align: center;
+}
+
 div#ctrls {
+    margin: 0 auto 30px;
     width : 800px;
+    background: #aaa;
+    text-align: left;
 }
 
 input#btn_delete {
@@ -13,11 +28,19 @@ input#btn_delete {
 }
 
 div#main {
-    background-color : #FFF;
     padding : 5px;
+    margin: 0 auto 20px;
+    text-align: center;
+}
+video {
+  background: #000;
+  margin: 0;
 }
 
 .editable {
   padding : 4px;
   background-color : #FFA;
+}
+#foot {
+  padding: 0 10px 20px;
 }
